@@ -1,0 +1,25 @@
+local CNBP = {}
+local oldChat
+local Players = game:GetService("Players")
+local PlayersTable = Players:GetChildren()
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character
+local textChatService = game:GetService("TextChatService")
+local CharacterRoot = Character:FindFirstChild("HumanoidRootPart")
+local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+local replicatedStorage = game:GetService("ReplicatedStorage")
+
+if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+	oldChat = false
+else
+	oldChat = true
+end
+function CNBP.chat(msg)
+	if not oldChat then
+		textChatService.TextChannels.RBXGeneral:SendAsync(msg)
+	else
+		replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg, "All")
+	end
+end
+
+return CNBP
