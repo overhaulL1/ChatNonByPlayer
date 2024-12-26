@@ -14,7 +14,7 @@ if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
 else
 	oldChat = true
 end
-function CNBP.chat(msg)
+CNBP.chat = function(msg)
 	if not oldChat then
 		textChatService.TextChannels.RBXGeneral:SendAsync(msg)
 	else
